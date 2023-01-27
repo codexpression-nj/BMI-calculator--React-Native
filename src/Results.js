@@ -6,28 +6,31 @@ import { View, Text, StyleSheet } from 'react-native';
 import Loader from './Loader';
 
 // create a component
-const Results = ({ navigation }) => {
+const Results = ({ navigation , route}) => {
     const [loading, setLoading] = useState(false)
+    const { weight,height } = route.params;
+    // const { height } = route.params;
 
     const calculate = async () => {
-        setLoading(true)
-        const options = {
-            method: 'GET',
-            headers: {
-                'X-RapidAPI-Key': '049a6e3f41mshd5ebf0fd567aaa5p1f657ajsn31890da6fdf9',
-                'X-RapidAPI-Host': 'body-mass-index-bmi-calculator.p.rapidapi.com'
-            }
-        };
+        setLoading(false)
+        console.log(weight + " --"+ height);
+    //     const options = {
+    //         method: 'GET',
+    //         headers: {
+    //             'X-RapidAPI-Key': '049a6e3f41mshd5ebf0fd567aaa5p1f657ajsn31890da6fdf9',
+    //             'X-RapidAPI-Host': 'body-mass-index-bmi-calculator.p.rapidapi.com'
+    //         }
+    //     };
 
-        fetch('https://body-mass-index-bmi-calculator.p.rapidapi.com/metric?weight=100&height=1.811', options)
-            .then(response => response.json())
-            .then((response) => {
+    //     fetch('https://body-mass-index-bmi-calculator.p.rapidapi.com/metric?weight=100&height=1.811', options)
+    //         .then(response => response.json())
+    //         .then((response) => {
 
-                console.log(response)
-                setLoading(false)
-                // navigation.navigate('Results')
-            })
-            .catch(err => console.error(err.message));
+    //             console.log(response)
+    //             setLoading(false)
+    //             // navigation.navigate('Results')
+    //         })
+    //         .catch(err => console.error(err.message));
     }
 
     useEffect(() => {

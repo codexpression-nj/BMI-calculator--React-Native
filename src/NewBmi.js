@@ -44,11 +44,11 @@ const NewBmi = ({navigation}) => {
                     </View>
                     <View style={styles.weight}>
                         <Text style={{ color: 'white' }}>Weight</Text>
-                        <TextInput style={styles.input} value={weight} keyboardType={'numeric'} onValueChange={(value) => setWeight(Number(value))} />
+                        <TextInput style={styles.input} value={weight} keyboardType={'numeric'} onChangeText={(value) => setWeight(value)} />
                         <Text style={{ fontSize: 19, color: '#15B8A7', fontWeight: '100' }}>/KG</Text>
                     </View>
 
-                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Results', {data:weight})}>
+                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Results', {wieght:weight, height:height})}>
                         <Text style={{ color: 'white', fontSize: 18 }}>Calculate BMI</Text>
                     </TouchableOpacity>
              
