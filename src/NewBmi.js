@@ -6,7 +6,7 @@ import { useState } from 'react';
 import Loader from './Loader';
 
 // create a component
-const NewBmi = ({navigation}) => {
+const NewBmi = ({ navigation }) => {
     const [height, setHieght] = useState(0)
     const [weight, setWeight] = useState(0)
     const [gender, setGender] = useState('')
@@ -14,44 +14,49 @@ const NewBmi = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-           
-                    <View style={styles.gender}>
-                        <TouchableOpacity style={[styles.imgBox, gender == 'female' ? styles.genderClicked : styles.imgBox]} onPress={() => setGender('female')}>
-                            <Image source={require('../assets/femenine.png')} style={styles.img} />
-                            <Text style={{ color: 'white' }}>Female</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[styles.imgBox, gender == 'male' ? styles.genderClicked : styles.imgBox]} onPress={() => setGender('male')}>
-                            <Image source={require('../assets/male.png')} style={styles.img} />
-                            <Text style={{ color: 'white' }}>Male</Text>
 
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.height}>
-                        <Text style={{ color: 'white', marginBottom: 20 }}>Hieght</Text>
-                        <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 30, margin: 16, }}>{height} </Text>
-                        <Text style={{ fontWeight: "100", color: '#15B8A7', fontSize: 19, }}>/CM</Text>
-                        <Slider
-                            style={{ width: 300, height: 40 }}
-                            minimumValue={0}
-                            maximumValue={200}
-                            minimumTrackTintColor="#FFFFFF"
-                            maximumTrackTintColor="#000000"
-                            step={1}
-                            value={height}
-                            // {...height}
-                            onValueChange={(value) => setHieght(value)}
-                        />
-                    </View>
-                    <View style={styles.weight}>
-                        <Text style={{ color: 'white' }}>Weight</Text>
-                        <TextInput style={styles.input} value={weight} keyboardType={'numeric'} onChangeText={(value) => setWeight(value)} />
-                        <Text style={{ fontSize: 19, color: '#15B8A7', fontWeight: '100' }}>/KG</Text>
-                    </View>
+            <View style={styles.gender}>
+                <TouchableOpacity style={[styles.imgBox, gender == 'female' ? styles.genderClicked : styles.imgBox]} onPress={() => setGender('female')}>
+                    <Image source={require('../assets/femenine.png')} style={styles.img} />
+                    <Text style={{ color: 'white' }}>Female</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.imgBox, gender == 'male' ? styles.genderClicked : styles.imgBox]} onPress={() => setGender('male')}>
+                    <Image source={require('../assets/male.png')} style={styles.img} />
+                    <Text style={{ color: 'white' }}>Male</Text>
 
-                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Results', {wieght:weight, height:height})}>
-                        <Text style={{ color: 'white', fontSize: 18 }}>Calculate BMI</Text>
-                    </TouchableOpacity>
-             
+                </TouchableOpacity>
+            </View>
+            <View style={styles.height}>
+                <Text style={{ color: 'white', marginBottom: 20 }}>Hieght</Text>
+                <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 30, margin: 16, }}>{height} </Text>
+                <Text style={{ fontWeight: "100", color: '#15B8A7', fontSize: 19, }}>/CM</Text>
+                <Slider
+                    style={{ width: 300, height: 40 }}
+                    minimumValue={130}
+                    maximumValue={230}
+                    minimumTrackTintColor="#FFFFFF"
+                    maximumTrackTintColor="#000000"
+                    step={1}
+                    value={height}
+                    // {...height}
+                    onValueChange={(value) => setHieght(value)}
+                />
+            </View>
+            <View style={styles.weight}>
+                <Text style={{ color: 'white' }}>Weight</Text>
+                <TextInput style={styles.input} value={weight} keyboardType={'numeric'} onChangeText={(value) => setWeight(value)} />
+                <Text style={{ fontSize: 19, color: '#15B8A7', fontWeight: '100' }}>/KG</Text>
+            </View>
+
+            <TouchableOpacity style={styles.button} onPress={() => {
+                console.log(weight), navigation.navigate('Results', {
+                    wieghtData: weight,
+                    heightData: height
+                })
+            }}>
+                <Text style={{ color: 'white', fontSize: 18 }}>Calculate BMI</Text>
+            </TouchableOpacity>
+
         </View>
     );
 };
@@ -80,14 +85,14 @@ const styles = StyleSheet.create({
         fontSize: 30
     },
     button: {
-        width: '80%',
+        width: '90%',
         backgroundColor: '#15B8A7',
         color: 'white',
         height: 50,
         borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 30
+        marginTop:20
         // bottom:0
     },
     height: {
