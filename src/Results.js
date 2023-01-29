@@ -12,13 +12,10 @@ const Results = ({ navigation, route }) => {
     const [healthStatus, setHealthStatus] = useState('')
     const [bmi, setBmi] = useState()
     const { wieghtData, heightData } = route.params;
-    // const { height } = route.params;
-    const animation = useRef(null);
 
     const calculate = async () => {
         setLoading(true)
-        console.log(" --" + wieghtData);
-        console.log(" --" + heightData);
+      
         const options = {
             method: 'GET',
             headers: {
@@ -36,29 +33,9 @@ const Results = ({ navigation, route }) => {
                 console.log(response.data.health);
             })
             .catch(err => console.error(err));
-
-        //     const options = {
-        //         method: 'GET',
-        //         headers: {
-        //             'X-RapidAPI-Key': '049a6e3f41mshd5ebf0fd567aaa5p1f657ajsn31890da6fdf9',
-        //             'X-RapidAPI-Host': 'body-mass-index-bmi-calculator.p.rapidapi.com'
-        //         }
-        //     };
-
-        //     fetch('https://body-mass-index-bmi-calculator.p.rapidapi.com/metric?weight=100&height=1.811', options)
-        //         .then(response => response.json())
-        //         .then((response) => {
-
-        //             console.log(response)
-        //             setLoading(false)
-        //             // navigation.navigate('Results')
-        //         })
-        //         .catch(err => console.error(err.message));
     }
 
     useEffect(() => {
-        // You can control the ref programmatically, rather than using autoPlay
-        // animation.current?.play();
         calculate()
     }, []);
 
@@ -81,12 +58,11 @@ const Results = ({ navigation, route }) => {
                     <Text style={{ color: 'white', fontSize: 18, margin: 24, marginTop: 60 }}>Your results</Text>
                     {/* <Text>{healthStatus}</Text> */}
                     <ResultView ></ResultView>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
                         <Text style={{ color: 'white', fontSize: 18 }}>Recalculate</Text>
                     </TouchableOpacity>
                 </View>
                 : <Loader></Loader>
-
             }
         </View>
     );
@@ -131,11 +107,11 @@ const styles = StyleSheet.create({
     category: {
         fontWeight: '500',
         fontSize: 24,
-        // color:'yellow'
+        color:'red'
 
     },
     normalCategory:{
-        color:'green'
+        color:'#2FCC71'
     },
     overweightCategory:{
         color:'yellow'
@@ -143,9 +119,6 @@ const styles = StyleSheet.create({
     obesityCategory:{
         color:'red'
     },
-   
-
-
 });
 
 //make this component available to the app
