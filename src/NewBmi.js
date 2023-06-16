@@ -9,6 +9,7 @@ import Loader from './Loader';
 const NewBmi = ({ navigation }) => {
     const [height, setHieght] = useState(0)
     const [weight, setWeight] = useState(0)
+    const [age, setAge] = useState(0)
     const [gender, setGender] = useState('')
     const [loading, setLoading] = useState(false)
 
@@ -42,16 +43,24 @@ const NewBmi = ({ navigation }) => {
                     onValueChange={(value) => setHieght(value)}
                 />
             </View>
+            <View style={styles.gender}>
+            <View style={styles.weight}>
+                <Text style={{ color: 'white' }}>Age</Text>
+                <TextInput style={styles.input} value={age} keyboardType={'numeric'} onChangeText={(value) => setAge(value)} />
+                <Text style={{ fontSize: 19, color: '#15B8A7', fontWeight: '100' }}>/Years</Text>
+            </View>
             <View style={styles.weight}>
                 <Text style={{ color: 'white' }}>Weight</Text>
                 <TextInput style={styles.input} value={weight} keyboardType={'numeric'} onChangeText={(value) => setWeight(value)} />
                 <Text style={{ fontSize: 19, color: '#15B8A7', fontWeight: '100' }}>/KG</Text>
             </View>
-
+            </View>
+           
             <TouchableOpacity style={styles.button} onPress={() => {
                 console.log(weight), navigation.navigate('Results', {
                     wieghtData: weight,
-                    heightData: height
+                    heightData: height,
+                    ageData:age
                 })
             }}>
                 <Text style={{ color: 'white', fontSize: 18 }}>Calculate BMI</Text>
@@ -72,9 +81,9 @@ const styles = StyleSheet.create({
     input: {
         color: 'white',
         borderColor: '#15B8A7',
-        height: 90,
+        height: 50,
         borderWidth: 1,
-        width: '30%',
+        width: '50%',
         alignItems: 'center',
         alignContent: "center",
         alignSelf: 'center',
@@ -107,7 +116,7 @@ const styles = StyleSheet.create({
     },
     weight: {
         height: 200,
-        width: '90%',
+        width: '48%',
         alignContent: "center",
         alignItems: 'center',
         backgroundColor: '#1E1F32',
@@ -136,7 +145,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         backgroundColor: '#1E1F32',
-        width: '45%',
+        width: '48%',
         height: '100%',
         borderRadius: 16,
 
@@ -150,6 +159,9 @@ const styles = StyleSheet.create({
         width: '45%',
         height: '100%',
         borderRadius: 16,
+    },
+    age:{
+
     }
 });
 

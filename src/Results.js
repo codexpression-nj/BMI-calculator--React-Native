@@ -2,7 +2,7 @@
 import React, { Component, useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import Loader from './Loader';
 import LottieView from 'lottie-react-native';
 
@@ -11,11 +11,12 @@ const Results = ({ navigation, route }) => {
     const [loading, setLoading] = useState(false)
     const [healthStatus, setHealthStatus] = useState('')
     const [bmi, setBmi] = useState()
-    const { wieghtData, heightData } = route.params;
+    const [error, setError] = React.useState(null);
+    const { wieghtData, heightData, ageData } = route.params;
 
     const calculate = async () => {
         setLoading(true)
-      
+
         const options = {
             method: 'GET',
             headers: {
@@ -24,13 +25,21 @@ const Results = ({ navigation, route }) => {
             }
         };
 
-        fetch('https://fitness-calculator.p.rapidapi.com/bmi?age=25&weight=' + wieghtData + '&height=' + heightData, options)
+        fetch('https://fitness-calculator.p.rapidapi.com/bmi?age=' + ageData + '&weight=' + wieghtData + '&height=' + heightData, options)
             .then(response => response.json())
             .then(response => {
+                console.log(response);
+
+                if (response.status_code === 422) {
+                    setError(response.errors);
+                    setLoading(false)
+                    console.log(response.errors);
+                } else {
+                    setHealthStatus(response.data.health)
+                    setBmi(response.data.bmi)
+                }
                 setLoading(false)
-                setHealthStatus(response.data.health)
-                setBmi(response.data.bmi)
-                console.log(response.data.health);
+
             })
             .catch(err => console.error(err));
     }
@@ -43,7 +52,7 @@ const Results = ({ navigation, route }) => {
         return (
             <View style={styles.resultsCard}>
 
-                <Text  style={[styles.category, healthStatus == 'Normal' ? styles.normalCategory : healthStatus == 'Overweight' ? styles.overweightCategory : healthStatus == ' Obese Class II' ? styles.obesityCategory : styles.category ]}>
+                <Text style={[styles.category, healthStatus == 'Normal' ? styles.normalCategory : healthStatus == 'Overweight' ? styles.overweightCategory : healthStatus == ' Obese Class II' ? styles.obesityCategory : styles.category]}>
                     {healthStatus}
                 </Text>
                 <Text style={styles.bmi}>{bmi}</Text>
@@ -54,14 +63,29 @@ const Results = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             {!loading
-                ? <View style={{}}>
-                    <Text style={{ color: 'white', fontSize: 18, margin: 24, marginTop: 60 }}>Your results</Text>
-                    {/* <Text>{healthStatus}</Text> */}
-                    <ResultView ></ResultView>
-                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
-                        <Text style={{ color: 'white', fontSize: 18 }}>Recalculate</Text>
-                    </TouchableOpacity>
-                </View>
+                ? <>
+                    {error
+
+                        ? <View style={styles.resultsCard}>
+                            <Text style={{ color: 'white', fontSize: 18, margin: 24, marginTop: 60 }}>Ooops...</Text>
+                            <Text style={{ textAlign: "center", color: 'white', fontSize: 18, margin: 30, marginTop: 60 }}>{error[0]}</Text>
+                            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
+                                <Text style={{ color: 'white', fontSize: 18 }}>Recalculate</Text>
+                            </TouchableOpacity>
+                        </View>
+                        :
+                        <View>
+                            <Text style={{ color: 'white', fontSize: 18, margin: 24, marginTop: 60 }}>Your results</Text>
+                            <ResultView ></ResultView>
+                            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
+                                <Text style={{ color: 'white', fontSize: 18 }}>Recalculate</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                    }
+
+                </>
+
                 : <Loader></Loader>
             }
         </View>
@@ -101,23 +125,23 @@ const styles = StyleSheet.create({
     bmi: {
         color: 'white',
         fontSize: 64,
-       margin:90,
-       fontWeight:'200'
+        margin: 90,
+        fontWeight: '200'
     },
     category: {
         fontWeight: '500',
         fontSize: 24,
-        color:'red'
+        color: 'red'
 
     },
-    normalCategory:{
-        color:'#2FCC71'
+    normalCategory: {
+        color: '#2FCC71'
     },
-    overweightCategory:{
-        color:'yellow'
+    overweightCategory: {
+        color: 'yellow'
     },
-    obesityCategory:{
-        color:'red'
+    obesityCategory: {
+        color: 'red'
     },
 });
 
