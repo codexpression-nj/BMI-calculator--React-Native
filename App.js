@@ -12,7 +12,6 @@ export default function App() {
     <Stack.Navigator>
       <Stack.Screen name="Home" component={NewBmi} options={{headerShown:false}}/>
       <Stack.Screen name="Results" component={Results} options={{headerShown:false}}/>
-
     </Stack.Navigator>
   </NavigationContainer>
 

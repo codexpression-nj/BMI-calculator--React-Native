@@ -11,7 +11,6 @@ const NewBmi = ({ navigation }) => {
     const [weight, setWeight] = useState(0)
     const [age, setAge] = useState(0)
     const [gender, setGender] = useState('')
-    const [loading, setLoading] = useState(false)
 
     return (
         <View style={styles.container}>
@@ -39,7 +38,6 @@ const NewBmi = ({ navigation }) => {
                     maximumTrackTintColor="#000000"
                     step={1}
                     value={height}
-                    // {...height}
                     onValueChange={(value) => setHieght(value)}
                 />
             </View>

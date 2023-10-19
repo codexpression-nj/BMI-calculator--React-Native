@@ -20,7 +20,7 @@ const Results = ({ navigation, route }) => {
         const options = {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Key': '049a6e3f41mshd5ebf0fd567aaa5p1f657ajsn31890da6fdf9',
+                'X-RapidAPI-Key': '',
                 'X-RapidAPI-Host': 'fitness-calculator.p.rapidapi.com'
             }
         };

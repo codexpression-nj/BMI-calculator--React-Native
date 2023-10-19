@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "bmi",
-    "slug": "bmi",
+    "name": "My BMI",
+    "slug": "mybmi",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,10 +24,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.nokwanda.bmi"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "372a102c-60dc-497b-a2ff-0f50715ffa8f"
+      }
     }
   }
 }
