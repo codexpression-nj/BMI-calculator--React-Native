@@ -15,7 +15,7 @@ const NewBmi = ({ navigation }) => {
     return (
         <View style={styles.container}>
 
-            <View style={styles.gender}>
+            {/* <View style={styles.gender}>
                 <TouchableOpacity style={[styles.imgBox, gender == 'female' ? styles.genderClicked : styles.imgBox]} onPress={() => setGender('female')}>
                     <Image source={require('../assets/femenine.png')} style={styles.img} />
                     <Text style={{ color: 'white' }}>Female</Text>
@@ -25,7 +25,7 @@ const NewBmi = ({ navigation }) => {
                     <Text style={{ color: 'white' }}>Male</Text>
 
                 </TouchableOpacity>
-            </View>
+            </View> */}
             <View style={styles.height}>
                 <Text style={{ color: 'white', marginBottom: 20 }}>Hieght</Text>
                 <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 30, margin: 16, }}>{height} </Text>

@@ -13,19 +13,20 @@ const Results = ({ navigation, route }) => {
     const [bmi, setBmi] = useState()
     const [error, setError] = React.useState(null);
     const { wieghtData, heightData, ageData } = route.params;
-
+    const apiKey = process.env.EXPO_PUBLIC_API_KEY;
+    console.log(apiKey);
     const calculate = async () => {
         setLoading(true)
-
+        const url = `https://fitness-calculator.p.rapidapi.com/bmi?age=${ageData}&weight=${wieghtData}&height=${heightData}`;
         const options = {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Key': '',
+                'X-RapidAPI-Key': apiKeyr,
                 'X-RapidAPI-Host': 'fitness-calculator.p.rapidapi.com'
             }
         };
 
-        fetch('https://fitness-calculator.p.rapidapi.com/bmi?age=' + ageData + '&weight=' + wieghtData + '&height=' + heightData, options)
+        fetch(url, options)
             .then(response => response.json())
             .then(response => {
                 console.log(response);
@@ -37,6 +38,7 @@ const Results = ({ navigation, route }) => {
                 } else {
                     setHealthStatus(response.data.health)
                     setBmi(response.data.bmi)
+                    console.log(response.data.bmi);
                 }
                 setLoading(false)
 
@@ -51,7 +53,6 @@ const Results = ({ navigation, route }) => {
     const ResultView = () => {
         return (
             <View style={styles.resultsCard}>
-
                 <Text style={[styles.category, healthStatus == 'Normal' ? styles.normalCategory : healthStatus == 'Overweight' ? styles.overweightCategory : healthStatus == ' Obese Class II' ? styles.obesityCategory : styles.category]}>
                     {healthStatus}
                 </Text>
