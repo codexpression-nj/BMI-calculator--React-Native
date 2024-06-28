@@ -14,14 +14,14 @@ const Results = ({ navigation, route }) => {
     const [error, setError] = React.useState(null);
     const { wieghtData, heightData, ageData } = route.params;
     const apiKey = process.env.EXPO_PUBLIC_API_KEY;
-    console.log(apiKey);
+   
     const calculate = async () => {
         setLoading(true)
         const url = `https://fitness-calculator.p.rapidapi.com/bmi?age=${ageData}&weight=${wieghtData}&height=${heightData}`;
         const options = {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Key': apiKeyr,
+                'X-RapidAPI-Key': apiKey,
                 'X-RapidAPI-Host': 'fitness-calculator.p.rapidapi.com'
             }
         };
